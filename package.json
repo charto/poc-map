@@ -1,0 +1,23 @@
+{
+  "name": "poc-map",
+  "version": "0.0.1",
+  "description": "Proof of concept automatic map visualizer",
+  "scripts": {
+    "doc": "typedoc --module system --mode file --out doc/typedoc src typings typings-custom",
+    "tsc": "tsc",
+    "prepublish": "tsc"
+  },
+  "author": "Juha Järvi",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "~3.0.5",
+    "leaflet": "~0.7.7",
+    "proj4": "~2.3.12",
+    "systemjs": "~0.19.5"
+  },
+  "devDependencies": {
+    "tsd": "~0.6.5",
+    "typedoc": "~0.3.12",
+    "typescript": "~1.6.2"
+  }
+}

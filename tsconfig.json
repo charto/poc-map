@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"declaration": true,
+		"module": "system",
+		"noImplicitAny": true,
+		"outDir": "dist",
+		"removeComments": false,
+		"sourceMap": true,
+		"target": "es5"
+	},
+	"files": [
+		"typings/tsd.d.ts",
+		"typings-custom/proj4.d.ts",
+
+		"index.ts"
+	]
+}
