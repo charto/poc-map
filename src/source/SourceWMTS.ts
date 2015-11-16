@@ -1,10 +1,22 @@
+import {SourceRest} from './SourceRest';
+
 import {TileMatrix} from './wmts/TileMatrix';
 import {TileMatrixSet} from './wmts/TileMatrixSet';
 import {LayerWMTS} from './wmts/LayerWMTS';
 
 /** Represents a WMTS API endpoint. */
 
-export class SourceWMTS {
+export class SourceWMTS extends SourceRest {
+
+	init() {
+		if(!this.loading) {
+			this.loading = this.fetchXML().then((xml: any) => {
+				this.parseCapabilities(xml);
+			});
+		}
+
+		return(this.loading);
+	}
 
 	/** Parse tile matrix sets from GetCapabilities. */
 
@@ -44,19 +56,9 @@ export class SourceWMTS {
 
 	/** Parse WMTS GetCapabilities XML document. */
 
-	parseCap(xml: any) {
+	parseCapabilities(xml: any) {
 		this.parseCapMatrixSets(xml.Capabilities.Contents.TileMatrixSet);
 		this.parseCapLayers(xml.Capabilities.Contents.Layer);
-	}
-
-	/** Get layer by ID. */
-
-	getLayer(id: string) {
-		return(this.layerTbl[id]);
-	}
-
-	getLayerList() {
-		return(this.layerList);
 	}
 
 	/** Get tile matrix set by ID. */
@@ -67,9 +69,4 @@ export class SourceWMTS {
 
 	/** Tile matrix sets in this WMTS API endpoint, indexed by ID. */
 	private tileMatrixSetTbl: {[id: string]: TileMatrixSet} = {};
-
-	/** Layers in this WMTS API endpoint, indexed by ID. */
-	private layerTbl: {[id: string]: LayerWMTS} = {};
-
-	private layerList: LayerWMTS[] = [];
 }

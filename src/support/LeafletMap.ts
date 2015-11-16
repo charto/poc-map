@@ -1,6 +1,8 @@
+import 'leaflet.css!'
 import * as L from 'leaflet';
 
 import {Map} from '../map/Map';
+import {Layer} from '../map/Layer';
 
 import {SourceWMTS} from '../source/SourceWMTS';
 import {LayerWMTS} from '../source/wmts/LayerWMTS';
@@ -10,7 +12,7 @@ import {LeafletCRS} from './leaflet/LeafletCRS';
 import {LeafletLayerWMTS} from './leaflet/LeafletLayerWMTS';
 
 export class LeafletMap extends Map {
-	constructor(idDom: string, bgSourceList: SourceWMTS[]) {
+	constructor(idDom: string) {
 		super();
 
 		var lmap = L.map(idDom, {
@@ -20,7 +22,7 @@ export class LeafletMap extends Map {
 		this.lmap = lmap;
 
 		this.createBaseLayer();
-		this.createLayerSwitcher(bgSourceList);
+		this.createLayerSwitcher();
 
 		L.control.scale().addTo(lmap);
 	}
@@ -40,25 +42,21 @@ export class LeafletMap extends Map {
 		this.baseLayerLeaflet = base;
 	}
 
-	private createLayerSwitcher(bgSourceList: SourceWMTS[]) {
-		var bgLayerTbl: {[title: string]: L.TileLayer} = {};
+	foundLayer(layer: Layer) {
+		var leafletLayer = new L.TileLayer('');
 
-		for(var source of bgSourceList) {
-			for(var layer of source.getLayerList()) {
-				var leafletLayer = new L.TileLayer('');
+		(leafletLayer as any).chartoLayer = layer;
 
-				(leafletLayer as any).chartoLayer = layer;
+		this.layerControl.addBaseLayer(leafletLayer, layer.title);
+	}
 
-				bgLayerTbl[layer.title] = leafletLayer;
-			}
-		}
-
-		var layerControl = L.control.layers(bgLayerTbl, {
-			// ...
-		}, {
+	private createLayerSwitcher() {
+		this.layerControl = L.control.layers({}, {}, {
 			position: 'topright',
 			collapsed: false
-		}).addTo(this.lmap);
+		});
+
+		this.layerControl.addTo(this.lmap);
 
 		this.lmap.on('baselayerchange', (e: L.LeafletLayersControlEvent) => {
 			this.setBaseLayer((e.layer as any).chartoLayer);
@@ -100,6 +98,7 @@ export class LeafletMap extends Map {
 	}
 
 	lmap: L.Map;
+	layerControl: L.Control.Layers;
 
 	baseLayerLeaflet: LeafletLayerWMTS;
 }

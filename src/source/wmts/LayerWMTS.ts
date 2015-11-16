@@ -1,8 +1,10 @@
+import {Layer} from '../../map/Layer';
+
 import {SourceWMTS} from '../SourceWMTS';
 import {TileMatrix} from './TileMatrix';
 import {TileMatrixSet} from './TileMatrixSet';
 
-export class LayerWMTS {
+export class LayerWMTS extends Layer {
 
 	/** Parse Layer element in WMTS GetCapabilities XML. */
 
@@ -39,10 +41,6 @@ export class LayerWMTS {
 		return(this.tileMatrixSet.matrixList[zoom || 0]);
 	}
 
-	/** Layer ID, main way of referring to it. */
-	id: string;
-	/** Human-readable layer name shown to users. */
-	title: string;
 	/** Format of URL addresses of individual tiles. */
 	urlTemplate: string;
 
