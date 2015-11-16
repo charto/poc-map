@@ -7,9 +7,9 @@ System.config({
   },
 
   map: {
-    "leaflet": "npm/leaflet/dist/leaflet.js",
-    "leaflet.css": "npm/leaflet/dist/leaflet.css",
+    "bluebird": "npm/bluebird/js/browser/bluebird.min.js",
     "css": "github:systemjs/plugin-css@0.1.19",
-    "bluebird": "npm/bluebird/js/browser/bluebird.min.js"
+    "leaflet": "npm/leaflet/dist/leaflet.js",
+    "leaflet.css": "npm/leaflet/dist/leaflet.css"
   }
 });
