@@ -3,7 +3,7 @@
 		"declaration": true,
 		"module": "system",
 		"noImplicitAny": true,
-		"outDir": "dist",
+		"outDir": "dist/src",
 		"removeComments": false,
 		"sourceMap": true,
 		"target": "es5"
@@ -12,6 +12,6 @@
 		"typings/tsd.d.ts",
 		"typings-custom/proj4.d.ts",
 
-		"index.ts"
+		"src/index.ts"
 	]
 }

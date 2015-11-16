@@ -3,12 +3,12 @@ import 'leaflet.css!'
 import * as Promise from 'bluebird';
 import * as L from 'leaflet';
 
-import {Map} from './src/map/Map';
-import {ParserXML} from './src/parser/ParserXML';
-import {SourceWMTS} from './src/source/SourceWMTS';
-import {LayerWMTS} from './src/source/wmts/LayerWMTS';
-import {TileMatrix} from './src/source/wmts/TileMatrix';
-import {LeafletMap} from './src/support/LeafletMap'
+import {Map} from './map/Map';
+import {ParserXML} from './parser/ParserXML';
+import {SourceWMTS} from './source/SourceWMTS';
+import {LayerWMTS} from './source/wmts/LayerWMTS';
+import {TileMatrix} from './source/wmts/TileMatrix';
+import {LeafletMap} from './support/LeafletMap'
 
 // Make Promise work with SystemJS in the browser.
 
