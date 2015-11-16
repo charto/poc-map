@@ -3,14 +3,20 @@ import * as L from 'leaflet';
 import {LayerWMTS} from '../../source/wmts/LayerWMTS';
 
 export class LeafletLayerWMTS extends L.TileLayer {
-	constructor(layer: LayerWMTS, options: L.TileLayerOptions) {
+	constructor(options: L.TileLayerOptions) {
 		super('', options);
+	}
 
+	switchLayer(layer: LayerWMTS) {
 		this.chartoLayer = layer;
+		this.redraw();
 	}
 
 	getTileUrl(xy: L.Point) {
 		var layer = this.chartoLayer;
+
+		if(!layer) return('');
+
 		var zoom = Math.min(
 			this._map.getZoom() + this.options.zoomOffset,
 			this.options.maxNativeZoom || Infinity

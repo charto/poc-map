@@ -56,5 +56,5 @@ new Fetcher().fetch('http://geoserver.hel.fi/mapproxy/wmts/1.0.0/WMTSCapabilitie
 	var source = new SourceWMTS();
 	source.parseCap(xml);
 
-	new LeafletMap('map').setBaseLayer(source.getLayer('osm-sm'));
+	new LeafletMap('map', [source]).setBaseLayer(source.getLayer('osm-sm'));
 });

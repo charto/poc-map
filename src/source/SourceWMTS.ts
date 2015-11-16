@@ -33,8 +33,13 @@ export class SourceWMTS {
 
 			layer.parseCap(layerSpec, this);
 
-			if(layer.id) this.layerTbl[layer.id] = layer;
+			if(layer.id) {
+				this.layerTbl[layer.id] = layer;
+				this.layerList.push(layer);
+			}
 		}
+
+		this.layerList.sort((a: LayerWMTS, b: LayerWMTS) => a.id.localeCompare(b.id));
 	}
 
 	/** Parse WMTS GetCapabilities XML document. */
@@ -50,6 +55,10 @@ export class SourceWMTS {
 		return(this.layerTbl[id]);
 	}
 
+	getLayerList() {
+		return(this.layerList);
+	}
+
 	/** Get tile matrix set by ID. */
 
 	getTileMatrixSet(id: string) {
@@ -61,4 +70,6 @@ export class SourceWMTS {
 
 	/** Layers in this WMTS API endpoint, indexed by ID. */
 	private layerTbl: {[id: string]: LayerWMTS} = {};
+
+	private layerList: LayerWMTS[] = [];
 }
