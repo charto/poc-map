@@ -13,8 +13,26 @@
 
 	<script type="text/javascript">
 		document.addEventListener('DOMContentLoaded', function() {
-			System.config({ baseURL: window.location.pathname });
-			System.import('../dist/src/index.js');
+			var production = false;
+
+			var bundlePath = 'dist/src/bundle.js';
+			var mainPath = 'dist/src/index.js';
+			var urlBase = window.location.pathname;
+
+			if(!production) {
+				// Load individual source files unless URL parameter bundle=1.
+				if(!window.location.search.match(/[?&]bundle=1($|&)/)) {
+					bundlePath = mainPath;
+					mainPath = null;
+				}
+				urlBase = urlBase.replace(/\/www\/$/, '/');
+			}
+
+			System.config({ baseURL: urlBase });
+
+			System.import(bundlePath).then(function() {
+				if(mainPath) System.import(mainPath);
+			});
 		});
 	</script>
 

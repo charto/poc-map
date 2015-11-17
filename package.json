@@ -5,6 +5,7 @@
   "scripts": {
     "doc": "typedoc --module system --mode file --out doc/typedoc src typings typings-custom",
     "tsc": "tsc",
+    "bundle": "jspm bundle dist/src/index.js dist/src/bundle.js",
     "prepublish": "jspm install && tsd install && tsc"
   },
   "author": "Juha Järvi",
@@ -16,6 +17,7 @@
     "systemjs": "~0.19.5"
   },
   "devDependencies": {
+    "clean-css": "~3.4.8",
     "jspm": "~0.16.14",
     "tsd": "~0.6.5",
     "typedoc": "~0.3.12",
@@ -25,6 +27,8 @@
     "dependencies": {
       "css": "github:systemjs/plugin-css@^0.1.19"
     },
-    "devDependencies": {}
+    "devDependencies": {
+      "charto/plugin-node": "github:charto/plugin-node@master"
+    }
   }
 }
