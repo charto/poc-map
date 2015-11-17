@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"noImplicitAny": true,
+		"removeComments": false,
+		"target": "es5"
+	},
+	"files": [
+		"../typings/tsd.d.ts",
+
+		"serve.ts"
+	]
+}

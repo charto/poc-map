@@ -25,7 +25,7 @@
 					bundlePath = mainPath;
 					mainPath = null;
 				}
-				urlBase = urlBase.replace(/\/www\/$/, '/');
+				urlBase = urlBase.replace(/\/www\/?$/, '/');
 			}
 
 			System.config({ baseURL: urlBase });

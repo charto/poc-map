@@ -3,10 +3,11 @@
   "version": "0.0.1",
   "description": "Proof of concept automatic map visualizer",
   "scripts": {
-    "doc": "typedoc --module system --mode file --out doc/typedoc src typings typings-custom",
+    "doc": "typedoc --module system --mode file --out doc/typedoc src test typings typings-custom",
     "tsc": "tsc",
+    "start": "node test/serve.js",
     "bundle": "jspm bundle dist/src/index.js dist/src/bundle.js",
-    "prepublish": "jspm install && tsd install && tsc"
+    "prepublish": "jspm install && tsd install && tsc && tsc -p test"
   },
   "author": "Juha Järvi",
   "license": "MIT",
