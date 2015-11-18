@@ -15,6 +15,7 @@ var mimeTbl: {[extension: string]: string} = {
 	css: 'text/css' + encoding,
 	html: 'text/html' + encoding,
 	js: 'text/javascript',
+	json: 'application/json',
 	xml: 'text/xml',
 	png: 'image/png'
 };
@@ -32,10 +33,10 @@ var app = http.createServer((req: http.IncomingMessage, res: http.ServerResponse
 
 	var urlParts = url.parse(req.url);
 
-	// Paths must start with / and contain maximum one consecutive special character
-	// between alphanumeric characters.
+	// Paths must start with / and contain maximum one consecutive potentially dangerous
+	// special character between alphanumeric characters.
 
-	var pathParts = urlParts.pathname.match(/^\/([0-9A-Za-z]+[-_./@]?)*/);
+	var pathParts = urlParts.pathname.match(/^\/([@_0-9A-Za-z]+[-./]?)*/);
 
 	// Reject all invalid paths.
 

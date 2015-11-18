@@ -20,6 +20,10 @@ npm start
 
 Then, open [localhost:6630](http://localhost:6630/) in a web browser.
 
+The frontend comes with a tiny HTTP server for testing, but using it is optional.
+You may copy the entire project inside any web server's public directory
+and use it from there.
+
 Technology
 ---
 
@@ -55,6 +59,14 @@ Configuration
 
 Currently server addresses are defined in [index.ts](https://github.com/charto/poc-map/blob/master/src/index.ts)
 until a better way is set up.
+
+The code can be bundled for faster loading by running `npm run bundle` and either setting `production = true` in `index.html`
+or appending `?bundle=1` to the URL address when opening the frontend.
+
+You can automatically generate documentation from code comments and annotations
+by running `npm run doc` and see it at
+[localhost:6630/doc/typedoc/](http://localhost:6630/doc/typedoc/)
+(the documentation consists of static files, easy to publish anywhere).
 
 License
 ===
