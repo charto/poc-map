@@ -74,7 +74,12 @@ var app = http.createServer((req: http.IncomingMessage, res: http.ServerResponse
 
 		res.writeHead(200, {
 			'Content-Type': mimeTbl[extension] || 'text/plain' + encoding,
-			'Content-Length': stats.size
+			'Content-Length': stats.size,
+
+			// Don't cache anything, to make sure reloading gives latest version.
+
+			'Cache-Control': 'no-cache, no-store, must-revalidate',
+			'Expires': 0
 		});
 
 		fs.createReadStream(filePath).pipe(res);
