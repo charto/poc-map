@@ -7,7 +7,9 @@
 	},
 	"files": [
 		"../typings/tsd.d.ts",
+		"../typings-custom/proj4.d.ts",
 
-		"serve.ts"
+		"serve.ts",
+		"test.ts"
 	]
 }

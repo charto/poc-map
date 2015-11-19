@@ -4,9 +4,12 @@
   "description": "Proof of concept automatic map visualizer",
   "scripts": {
     "doc": "typedoc --module system --mode file --out doc/typedoc src test typings typings-custom",
+    "jspm": "jspm",
     "tsc": "tsc",
+    "tsd": "tsd",
     "start": "node test/serve.js",
     "bundle": "jspm bundle dist/src/index.js dist/src/bundle.js --minify",
+    "test": "node test/test.js",
     "prepublish": "jspm install && tsd install && tsc && tsc -p test"
   },
   "author": "Juha Järvi",
@@ -18,6 +21,7 @@
   },
   "devDependencies": {
     "clean-css": "~3.4.8",
+    "es6-promise": "~3.0.2",
     "jspm": "~0.16.14",
     "tsd": "~0.6.5",
     "typedoc": "~0.3.12",

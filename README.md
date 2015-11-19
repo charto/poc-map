@@ -1,6 +1,8 @@
 Proof of concept automatic map visualizer
 ===
 
+[![build status](https://travis-ci.org/charto/poc-map.svg?branch=master)](http://travis-ci.org/charto/poc-map)
+
 `poc-map` is a map frontend to show map layers published on [GeoServer](http://geoserver.org/)
 or similar. No other backend component is needed.
 The only configuration required to get started are the URL addresses of map services to use.
