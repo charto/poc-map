@@ -1,4 +1,3 @@
-import {Promise} from '../util/Promise';
 import {Fetcher} from '../util/Fetcher';
 import {ParserXML} from '../parser/ParserXML';
 import {Layer} from '../map/Layer';

@@ -1,5 +1,3 @@
-import {Promise} from './Promise';
-
 export class Fetcher {
 	fetch(urlRemote: string) {
 		var resolve: (result: any) => void;

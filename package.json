@@ -12,7 +12,6 @@
   "author": "Juha Järvi",
   "license": "MIT",
   "dependencies": {
-    "bluebird": "~3.0.5",
     "leaflet": "~0.7.7",
     "proj4": "~2.3.12",
     "systemjs": "~0.19.5"
