@@ -1,4 +1,4 @@
-import {SourceRest} from './SourceRest';
+import {SourceOWS} from './SourceOWS';
 
 import {TileMatrix} from './wmts/TileMatrix';
 import {TileMatrixSet} from './wmts/TileMatrixSet';
@@ -6,30 +6,15 @@ import {LayerWMTS} from './wmts/LayerWMTS';
 
 /** Represents a WMTS API endpoint. */
 
-export class SourceWMTS extends SourceRest {
-
-	init() {
-		if(!this.loading) {
-			this.loading = this.fetchXML().then((xml: any) => {
-				this.parseCapabilities(xml);
-			});
-		}
-
-		return(this.loading);
-	}
+export class SourceWMTS extends SourceOWS {
 
 	/** Parse tile matrix sets from GetCapabilities. */
 
 	private parseCapMatrixSets(setSpecList: any) {
-		// TODO: With proper XSD schema support, setSpecList should always be an array
-		// in ParserXML output.
-
-		if(!(setSpecList instanceof Array)) setSpecList = [setSpecList];
-
-		for(var setSpec of setSpecList) {
+		for(var setSpec of this.forceArray(setSpecList)) {
 			var matrixSet = new TileMatrixSet();
 
-			matrixSet.parseCap(setSpec);
+			matrixSet.parseCapabilities(setSpec);
 
 			if(matrixSet.id) this.tileMatrixSetTbl[matrixSet.id] = matrixSet;
 		}
@@ -38,12 +23,10 @@ export class SourceWMTS extends SourceRest {
 	/** Parse layers from GetCapabilities. */
 
 	private parseCapLayers(layerSpecList: any) {
-		if(!(layerSpecList instanceof Array)) layerSpecList = [layerSpecList];
-
-		for(var layerSpec of layerSpecList) {
+		for(var layerSpec of this.forceArray(layerSpecList)) {
 			var layer = new LayerWMTS();
 
-			layer.parseCap(layerSpec, this);
+			layer.parseCapabilities(layerSpec, this);
 
 			if(layer.id) {
 				this.layerTbl[layer.id] = layer;
@@ -51,12 +34,14 @@ export class SourceWMTS extends SourceRest {
 			}
 		}
 
-		this.layerList.sort((a: LayerWMTS, b: LayerWMTS) => a.id.localeCompare(b.id));
+		this.sortLayers();
 	}
 
 	/** Parse WMTS GetCapabilities XML document. */
 
 	parseCapabilities(xml: any) {
+		super.parseCapabilities(xml.Capabilities);
+
 		this.parseCapMatrixSets(xml.Capabilities.Contents.TileMatrixSet);
 		this.parseCapLayers(xml.Capabilities.Contents.Layer);
 	}

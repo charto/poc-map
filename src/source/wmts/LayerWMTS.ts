@@ -8,7 +8,7 @@ export class LayerWMTS extends Layer {
 
 	/** Parse Layer element in WMTS GetCapabilities XML. */
 
-	parseCap(xml: any, source: SourceWMTS) {
+	parseCapabilities(xml: any, source: SourceWMTS) {
 		this.id = xml.Identifier;
 		this.title = xml.Title;
 

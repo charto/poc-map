@@ -6,7 +6,7 @@ export class TileMatrixSet {
 
 	/** Parse TileMatrixSet element in WMTS GetCapabilities XML. */
 
-	parseCap(xml: any) {
+	parseCapabilities(xml: any) {
 		this.id = xml.Identifier;
 		this.crsCode = xml.SupportedCRS;
 

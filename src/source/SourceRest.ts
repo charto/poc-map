@@ -32,6 +32,19 @@ export class SourceRest {
 		return(this.layerList);
 	}
 
+	// TODO: With proper XSD schema support, this function becomes unnecessary.
+	// Members will consistently be arrays or objects.
+
+	forceArray(xml: any) {
+		if(xml instanceof Array) return(xml);
+		else if(xml) return([xml]);
+		else return([]);
+	}
+
+	sortLayers() {
+		this.layerList.sort((a: Layer, b: Layer) => a.id.localeCompare(b.id));
+	}
+
 	private urlRemote: string;
 
 	protected loading: Promise<any>;

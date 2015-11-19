@@ -47,7 +47,11 @@ export class LeafletMap extends Map {
 
 		(leafletLayer as any).chartoLayer = layer;
 
-		this.layerControl.addBaseLayer(leafletLayer, layer.title);
+		if(layer instanceof LayerWMTS) {
+			this.layerControl.addBaseLayer(leafletLayer, layer.title);
+		} else {
+			this.layerControl.addOverlay(leafletLayer, layer.title);
+		}
 	}
 
 	private createLayerSwitcher() {
