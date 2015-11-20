@@ -7,6 +7,8 @@ export class TileMatrixSet {
 	/** Parse TileMatrixSet element in WMTS GetCapabilities XML. */
 
 	parseCapabilities(xml: any) {
+		var matrix: TileMatrix;
+
 		this.id = xml.Identifier;
 		this.crsCode = xml.SupportedCRS;
 
@@ -15,19 +17,21 @@ export class TileMatrixSet {
 		if(!(matrixSpecList instanceof Array)) matrixSpecList = [matrixSpecList];
 
 		for(var matrixSpec of matrixSpecList) {
-			var matrix = new TileMatrix();
+			matrix = new TileMatrix();
 
 			matrix.parseCap(matrixSpec);
 
 			this.matrixList.push(matrix);
 		}
 
-		this.matrixList.sort((a: TileMatrix, b: TileMatrix) => b.scale - a.scale);
+		this.matrixList.sort((a: TileMatrix, b: TileMatrix) => a.scale - b.scale);
 
-		var scale0 = this.matrixList[0].scale;
+		for(var zoom = 0; zoom < this.matrixList.length; ++zoom) {
+			matrix = this.matrixList[zoom];
 
-		for(var matrix of this.matrixList) {
-			matrix.scaleRelative = scale0 / matrix.scale;
+			matrix.zoom = zoom;
+
+			this.zoomScaleTbl[matrix.scale] = zoom;
 		}
 	}
 
@@ -37,6 +41,7 @@ export class TileMatrixSet {
 
 	/** List of tile matrices, one per zoom level. */
 	matrixList: TileMatrix[] = [];
+	zoomScaleTbl: {[scale: number]: number} = {};
 	/** Matrix set ID, referenced in XML by layers using this tile set. */
 	id: string;
 	/** Coordinate reference system, preferably an EPSG code. */

@@ -17,10 +17,13 @@ export class LeafletLayerWMTS extends L.TileLayer {
 
 		if(!layer) return('');
 
-		var zoom = Math.min(
-			this._map.getZoom() + this.options.zoomOffset,
-			this.options.maxNativeZoom || Infinity
-		);
+		// Leaflet >= 1.0
+		var zoom = (this as any)._tileZoom;
+
+		// Leaflet < 1.0
+		if(!zoom && zoom !== 0) zoom = this._map.getZoom();
+
+		zoom = Math.min(zoom, this.options.maxNativeZoom || Infinity);
 
 		var keyTbl: {[key: string]: string | number} = {
 			Style: layer.defaultStyle,

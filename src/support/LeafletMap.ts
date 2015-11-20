@@ -43,21 +43,23 @@ export class LeafletMap extends Map {
 	}
 
 	foundLayer(layer: Layer) {
-		var leafletLayer = new L.TileLayer('');
+		var leafletLayer = new L.LayerGroup();
 
 		(leafletLayer as any).chartoLayer = layer;
 
-		if(layer instanceof LayerWMTS) {
-			this.layerControl.addBaseLayer(leafletLayer, layer.title);
-		} else {
-			this.layerControl.addOverlay(leafletLayer, layer.title);
+		if(this.layerControl) {
+			if(layer instanceof LayerWMTS) {
+				this.layerControl.addBaseLayer(leafletLayer, layer.title);
+			} else {
+				this.layerControl.addOverlay(leafletLayer, layer.title);
+			}
 		}
 	}
 
 	private createLayerSwitcher() {
 		this.layerControl = L.control.layers({}, {}, {
 			position: 'topright',
-			collapsed: false
+			collapsed: true
 		});
 
 		this.layerControl.addTo(this.lmap);
@@ -72,19 +74,6 @@ export class LeafletMap extends Map {
 
 		super.setBaseLayer(layer);
 
-		var matrix = layer.getTileMatrix();
-
-		var S = matrix.bottom;
-		var W = matrix.left;
-		var N = matrix.top;
-		var E = matrix.right;
-
-	//	var e = 385789 * -4;
-	//	var n = 6672204 * 1.18;
-
-		var e = 385789;
-		var n = 6672204;
-
 	/*
 		map.setMaxBounds(L.latLngBounds(
 			map.unproject(new L.Point(0, 0), 13),
@@ -94,8 +83,7 @@ export class LeafletMap extends Map {
 
 		this.baseLayerLeaflet.switchLayer(layer);
 
-		lmap.setView(lmap.unproject(new L.Point(e - W, N - n), 13), 9, {
-	//	map.setView(map.unproject(new L.Point(e - W, N - n), 7), 3, {
+		lmap.setView(new L.LatLng(6672204, 385789), 2, {
 			pan: { animate: false },
 			zoom: { animate: false }
 		});

@@ -37,8 +37,12 @@ export class LayerWMTS extends Layer {
 
 	/** Get tile matrix for a single zoom level. */
 
-	getTileMatrix(zoom?: number) {
-		return(this.tileMatrixSet.matrixList[zoom || 0]);
+	getTileMatrix(zoom: number) {
+		return(this.tileMatrixSet.matrixList[zoom]);
+	}
+
+	getZoomForScale(scale?: number) {
+		return(this.tileMatrixSet.zoomScaleTbl[scale]);
 	}
 
 	/** Format of URL addresses of individual tiles. */
