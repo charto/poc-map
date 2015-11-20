@@ -7,9 +7,9 @@
     "jspm": "jspm",
     "tsc": "tsc",
     "tsd": "tsd",
-    "start": "node test/serve.js",
-    "bundle": "jspm bundle dist/src/index.js dist/src/bundle.js --minify",
-    "test": "node test/test.js",
+    "start": "node dist/commonjs/test/serve.js",
+    "bundle": "jspm bundle dist/systemjs/index.js dist/systemjs/bundle.js --minify",
+    "test": "node dist/commonjs/test/test.js",
     "prepublish": "jspm install && tsd install && tsc && tsc -p test"
   },
   "author": "Juha Järvi",

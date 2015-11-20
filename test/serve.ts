@@ -3,7 +3,7 @@ import * as url from 'url';
 import * as path from 'path';
 import * as http from 'http';
 
-var basePath = '..';
+var basePath = '../../..';
 
 var port = +process.argv[2] || 6630;
 

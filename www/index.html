@@ -15,8 +15,8 @@
 		document.addEventListener('DOMContentLoaded', function() {
 			var production = false;
 
-			var bundlePath = 'dist/src/bundle.js';
-			var mainPath = 'dist/src/index.js';
+			var bundlePath = 'dist/systemjs/bundle.js';
+			var mainPath = 'dist/systemjs/index.js';
 			var urlBase = window.location.pathname;
 
 			if(!production) {
@@ -36,7 +36,7 @@
 		});
 	</script>
 
-	<script defer src="../node_modules/systemjs/dist/system.src.js" type="text/javascript"></script>
+	<script defer src="../jspm_packages/system.src.js" type="text/javascript"></script>
 	<script defer src="config.js"></script>
 
 </head><body>

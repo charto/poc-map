@@ -3,7 +3,7 @@
 		"declaration": true,
 		"module": "system",
 		"noImplicitAny": true,
-		"outDir": "dist/src",
+		"outDir": "dist/systemjs",
 		"removeComments": false,
 		"sourceMap": true,
 		"target": "es5"
