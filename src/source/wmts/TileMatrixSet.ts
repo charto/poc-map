@@ -1,4 +1,5 @@
 import {TileMatrix} from './TileMatrix';
+import {BSearch} from '../../util/BSearch';
 
 /** Represents the tiling of all WMTS zoom levels. */
 
@@ -31,8 +32,22 @@ export class TileMatrixSet {
 
 			matrix.zoom = zoom;
 
-			this.zoomScaleTbl[matrix.scale] = zoom;
+			this.scaleToMatrixTbl[matrix.scale] = matrix;
 		}
+	}
+
+	getMatrixForZoom(zoom: number) {
+		if(zoom < 0) zoom = 0;
+		if(zoom > this.matrixList.length - 1) zoom = this.matrixList.length - 1;
+
+		return(this.matrixList[zoom]);
+	}
+
+	getMatrixForScale(scale: number) {
+		return(
+			this.scaleToMatrixTbl[scale] ||
+			this.matrixList[BSearch.upto(scale, this.matrixList, (scale, matrix) => scale - matrix.scale)]
+		);
 	}
 
 	getZoomMax() {
@@ -41,7 +56,7 @@ export class TileMatrixSet {
 
 	/** List of tile matrices, one per zoom level. */
 	matrixList: TileMatrix[] = [];
-	zoomScaleTbl: {[scale: number]: number} = {};
+	scaleToMatrixTbl: {[scale: number]: TileMatrix} = {};
 	/** Matrix set ID, referenced in XML by layers using this tile set. */
 	id: string;
 	/** Coordinate reference system, preferably an EPSG code. */

@@ -28,7 +28,7 @@ export class LeafletLayerWMTS extends L.TileLayer {
 		var keyTbl: {[key: string]: string | number} = {
 			Style: layer.defaultStyle,
 			TileMatrixSet: layer.tileMatrixSet.id,
-			TileMatrix: layer.getTileMatrix(zoom).id,
+			TileMatrix: layer.getMatrixForZoom(zoom).id,
 			TileCol: xy.x,
 			TileRow: xy.y
 		};

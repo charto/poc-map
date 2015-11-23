@@ -28,7 +28,7 @@ export class LeafletTransformation implements L.Transformation {
 		var matrix: TileMatrix;
 		var layer = this.lmap.baseLayer;
 
-		if(layer) matrix = layer.getTileMatrix(layer.getZoomForScale(scale));
+		if(layer) matrix = layer.getMatrixForScale(scale);
 
 		if(matrix) {
 			xy.x -= matrix.left;
@@ -46,14 +46,14 @@ export class LeafletTransformation implements L.Transformation {
 		var layer = this.lmap.baseLayer;
 		var left = 0, top = 0;
 
-		if(layer) matrix = layer.getTileMatrix(layer.getZoomForScale(scale));
+		if(layer) matrix = layer.getMatrixForScale(scale);
 
 		if(matrix) {
 			left = matrix.left;
 			top = matrix.top;
 		}
 
-		return new L.Point(xy.x / scale + left, xy.y / scale - top);
+		return(new L.Point(xy.x / scale + left, xy.y / scale - top));
 	}
 
 	private lmap: LeafletMap;
@@ -80,25 +80,17 @@ export class LeafletCRS extends (LeafletBaseCRS as any as {new(): L.ICRS}) {
 	}
 
 	scale(zoom: number) {
-		var matrix: TileMatrix;
-
-		if(this.lmap.baseLayer) matrix = this.lmap.baseLayer.getTileMatrix(zoom);
-
-		if(matrix) return(matrix.scale);
+		if(this.lmap.baseLayer) return(this.lmap.baseLayer.getScaleForZoom(zoom));
 
 		console.log('No scale for zoom ' + zoom);
-		return((1 << (zoom + 1)) / 2);
+		return(Math.pow(2, zoom));
 	}
 
 	zoom(scale: number) {
-		var zoom = -1;
-
-		if(this.lmap.baseLayer) zoom = this.lmap.baseLayer.getZoomForScale(scale);
-
-		if(zoom >= 0) return(zoom);
+		if(this.lmap.baseLayer) return(this.lmap.baseLayer.getZoomForScale(scale));
 
 		console.log('No zoom for scale ' + scale);
-		return((1 << (zoom + 1)) / 2);
+		return(Math.log(scale) / Math.LN2);
 	}
 
 	distance(ll1: L.LatLng, ll2: L.LatLng) {
